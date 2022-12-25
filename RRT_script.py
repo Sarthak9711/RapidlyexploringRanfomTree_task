@@ -7,7 +7,8 @@ import numpy as np
 import random
 
 # Opening and grayscaling the image.
-img = Image.open('sample_space.png')
+# img = Image.open('sample_space.png')
+img = Image.open('sample_space_obstacle.png')
 img = ImageOps.grayscale(img)
 
 # Converting the grayscale image into a form array.
@@ -21,10 +22,9 @@ plt.imshow(np_img)
 # Saving the image into ".npy" format
 np.save('sample_space.npy', np_img)
 
-# grid = np.load('sample_space.npy')
+grid = np.load('sample_space.npy')
 # plt.imshow(grid)
 # plt.show()
-
 
 # Initiating the cartesian-coordinates.
 class nodes():
@@ -45,7 +45,7 @@ class call_rrt():
         self.goal = nodes(goal[0], goal[1])
 
         # Maximum number of steps provided to the algorithm to reach the goal position. 
-        self.iterations = min(no_Iterations,200)
+        self.iterations = min(no_Iterations,500)
 
         # Initialising nearest_node as None.
         self.near_node = None
@@ -68,7 +68,7 @@ class call_rrt():
 
     # add the new node in way_points and add the goal point when reached.
     def add_point(self,x,y):
-        if(x == self.goal.x):
+        if(x == self.goal.x and y == self.goal.y):
             # To check if whether the random selected node is goal node.
             self.near_node.child.append(self.goal)
             self.goal.parent_node = self.near_node
@@ -93,9 +93,9 @@ class call_rrt():
 
         # Checiking the condition if the point is outside the range of the grid
         if point[1] >= grid.shape[0]:
-            point[1] = grid.shape[0]-1
+            point[1] = grid.shape[0]-10
         if point[0] >= grid.shape[1]:
-            point[0] = grid.shape[1]-1
+            point[0] = grid.shape[1]-10
         
         return point
 
@@ -108,10 +108,10 @@ class call_rrt():
             test_point[0] = start_loc.x + i*temp1[0]
             test_point[1] = start_loc.y + i*temp1[1]
 
+            # .astype(np.int64)
             # Check if the test point lies within obstacle. If the value at the grid is "1" then it is of black color, hence obstacle.
-            if self.grid[int(round(test_point[1]).astype(np.int64)),int(round(test_point[0]).astype(np.int64))] == 1:
+            if self.grid[round(test_point[1]).astype(np.int64),round(test_point[0]).astype(np.int64)] == 255:
                 return True
-        
         return False
     
     # Find the nearest point from the given discrete point using eucledian distance
@@ -132,7 +132,6 @@ class call_rrt():
         for child in root_node.child:
             self.find_near_node(child, point)
         
-        pass
 
     # Find the angle for the new node within given distance
     def direction(self, start_loc, end_loc):
@@ -150,8 +149,6 @@ class call_rrt():
     def reached_goal(self, point):
         if self.distance(self.goal, point) <= self.step:
             return True
-        
-        pass
 
 
     # Since after choosing after random point we rest the value of near_node and nearest_dist because we need to compute it for selecting next node.
@@ -176,7 +173,7 @@ class call_rrt():
         
 grid = np.load('sample_space.npy')
 start = np.array([100.0, 100.0])
-goal = np.array([700.0, 250.0])
+goal = np.array([600.0, 250.0])
 no_Iterations = 200
 max_dist = 50
 # goal_region = plt.circle((goal[0], goal[1]), max_dist, color='b', fill = False)
@@ -184,8 +181,8 @@ max_dist = 50
 plt.imshow(grid, cmap='binary')
 plt.plot(start[0], start[1], 'ro')
 plt.plot(goal[0], goal[1], 'bo')
-plt.xlabel('X-axis $(m)$')
-plt.ylabel('Y-axis $(m)$')
+plt.xlabel('X-axis (m)')
+plt.ylabel('Y-axis (m)')
 
 rrt = call_rrt(start, goal, no_Iterations, grid, max_dist)
 
@@ -211,9 +208,13 @@ for i in range(rrt.iterations):
 
 rrt.trace_the_path(rrt.goal)
 rrt.way_points.insert(0, start)
+
 print("Number of waypoints: ", rrt.no_way_points)
 print("Path Distance (in m): ", rrt.path_dist)
-print("Waypoints: ", rrt.way_points)
+print("Waypoints : ")
+
+for i in rrt.way_points:
+    print(i, end='\n')
 
 for i in range(len(rrt.way_points)-1):
     plt.plot([rrt.way_points[i][0], rrt.way_points[i+1][0]], [rrt.way_points[i][1], rrt.way_points[i+1][1]], 'ro', linestyle='--')
