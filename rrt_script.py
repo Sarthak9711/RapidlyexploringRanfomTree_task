@@ -123,7 +123,8 @@ class RRT_tree():
         self.trace_the_path(goal.parent)
 
 
-
+print("Range for x co-ordinate: 0 to " + str(map_area.shape[1]))
+print("Range for y co-ordinate: 0 to " + str(map_area.shape[0]))
 start_x = int(input("Enter the x co-ordinate for start point: "))
 start_y = int(input("Enter the y co-ordinate for start point: "))
 start = np.array([start_x, start_y])
