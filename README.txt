@@ -1,3 +1,5 @@
+TO RUN THE SCRIPT IN LINUX
+
 Download the "RapidlyexploringRanfomTree_task-main.zip" file and unzip it.
 After that change the your working directory to "RapidlyexploringRanfomTree_task-main" in the terminal.
 
