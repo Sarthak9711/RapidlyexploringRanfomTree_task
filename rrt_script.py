@@ -82,7 +82,7 @@ class RRT_tree():
         temp = self.direction(nearest_node, random_point)
         test_point = np.array([0.0,0.0])
 
-        for i in range(1,self.step+1):
+        for i in range(1,int(self.step)+1):
             test_point[0] = nearest_node.x + i*temp[0]
             test_point[1] = nearest_node.y + i*temp[1]
 
@@ -125,17 +125,17 @@ class RRT_tree():
 
 print("Range for x co-ordinate: 0 to " + str(map_area.shape[1]))
 print("Range for y co-ordinate: 0 to " + str(map_area.shape[0]))
-start_x = int(input("Enter the x co-ordinate for start point: "))
-start_y = int(input("Enter the y co-ordinate for start point: "))
+start_x = float(input("Enter the x co-ordinate for start point: "))
+start_y = float(input("Enter the y co-ordinate for start point: "))
 start = np.array([start_x, start_y])
 
-end_x = int(input("Enter the x co-ordinate for end point: "))
-end_y = int(input("Enter the y co-ordinate for end point: "))
+end_x = float(input("Enter the x co-ordinate for end point: "))
+end_y = float(input("Enter the y co-ordinate for end point: "))
 end = np.array([end_x, end_y])
 
 no_iterations = int(input("Enter the number of iterations: "))
 
-max_dist = int(input("Enter the max distance: "))
+max_dist = float(input("Enter the max distance: "))
 
 plt.imshow(map_area, cmap='binary')
 plt.plot(start[0], start[1], 'ro')
