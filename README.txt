@@ -1,5 +1,5 @@
 Download the "RapidlyexploringRanfomTree_task-main.zip" file and unzip it.
-After that change the your current directory to "RapidlyexploringRanfomTree_task-main" in the terminal.
+After that change the your working directory to "RapidlyexploringRanfomTree_task-main" in the terminal.
 
 Make sure you have python downloaded and installed it on your system.
 (Preferably python3 or newer version.)
