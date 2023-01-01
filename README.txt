@@ -11,5 +11,6 @@ This will run the script file containing the code.
 
 
 Extra references used:
+https://www.geeksforgeeks.org/how-to-convert-images-to-numpy-array/
 https://www.youtube.com/watch?v=TNajwFQP-Ys
 https://www.youtube.com/watch?v=QR3U1dgc5RE
