@@ -1,17 +1,17 @@
-# from PIL import Image, ImageOps
+from PIL import Image, ImageOps
 import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-# img = Image.open('sample_space.png')
-# img = ImageOps.grayscale(img)
-# img = np.array(img)
-# # Coverting black into white and vice versa.
-# img = ~img
+img = Image.open('sample_space.png')
+img = ImageOps.grayscale(img)
+img = np.array(img)
+# Coverting black into white and vice versa.
+img = ~img
 
-# # set_cmap was necessary unless it was taking colors other then black and white.
-# plt.set_cmap('binary')
-# np.save('sample_space.npy',img)
+# set_cmap was necessary unless it was taking colors other then black and white.
+plt.set_cmap('binary')
+np.save('sample_space.npy',img)
 
 map_area = np.load('sample_space.npy')
 class tree_nodes():
