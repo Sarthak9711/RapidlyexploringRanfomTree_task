@@ -111,9 +111,8 @@ class RRT_tree():
             return True
     
     def trace_the_path(self,goal):
-
-        if (goal.x == self.tree.x):
-            return
+        if (goal.x == self.tree.x and goal.y == self.tree.y):
+            return None
         
         self.no_way_points += 1
 
